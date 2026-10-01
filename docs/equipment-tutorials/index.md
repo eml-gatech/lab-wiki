@@ -1,4 +1,4 @@
-# Equipment tutorials
+# Equipment Tutorials
 
 Operating procedures for the shared instruments. These pages supplement
 hands-on training from the instrument's owner; they don't replace it.
