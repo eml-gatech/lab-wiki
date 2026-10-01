@@ -1,0 +1,4 @@
+# Build dependencies for the wiki. Pinned so the site builds the same way
+# on every machine and in GitHub Actions.
+mkdocs==1.6.1
+mkdocs-material==9.7.7

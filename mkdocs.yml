@@ -1,0 +1,114 @@
+# ---------------------------------------------------------------------------
+# Lab wiki configuration
+# organization (or username) and repository name.
+# ---------------------------------------------------------------------------
+site_name: Energy Materials Lab Wiki
+site_description: Internal knowledge base for the group
+site_url: https://eml-gatech.github.io/lab-wiki/
+
+# Links the header to the repo and powers the "edit this page" pencil icon
+repo_url: https://github.com/eml-gatech/lab-wiki
+repo_name: eml-gatech/lab-wiki
+edit_uri: edit/main/docs/
+
+copyright: Maintained by the group. Edits welcome via GitHub.
+
+theme:
+  name: material
+  variant: classic   # ignored by MkDocs; keeps this look if you switch to Zensical
+  language: en
+  icon:
+    logo: material/flask-outline
+    repo: fontawesome/brands/github
+  favicon: assets/images/favicon.svg
+  palette:
+    # Follow the operating system setting by default
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: deep orange
+      toggle:
+        icon: material/brightness-4
+        name: Switch to system preference
+  features:
+    - navigation.tabs          # top-level nav entries become tabs
+    - navigation.tabs.sticky   # tabs stay visible when scrolling
+    - navigation.indexes       # a section's index.md becomes its overview page
+    - navigation.top           # "back to top" button
+    - navigation.footer        # previous/next links at the bottom of each page
+    - search.suggest
+    - search.highlight
+    - content.action.edit      # pencil icon that opens the page in GitHub's editor
+    - content.code.copy        # copy button on code blocks
+    - content.tabs.link        # linked content tabs switch together
+
+# ---------------------------------------------------------------------------
+# Navigation: each top-level entry is a tab; nested entries are sub-pages.
+# To add a page: create the .md file under docs/, then list it here.
+# ---------------------------------------------------------------------------
+nav:
+  - Home: index.md
+  - Group organization:
+      - group-organization/index.md
+      - Group tasks: group-organization/group-tasks.md
+      - Mentors: group-organization/mentors.md
+      - Equipment owners: group-organization/equipment-owners.md
+  - Meeting schedule: meeting-schedule.md
+  - Equipment tutorials:
+      - equipment-tutorials/index.md
+      - Evaporator: equipment-tutorials/evaporator.md
+      - PL setup: equipment-tutorials/pl-setup.md
+      - XRD: equipment-tutorials/xrd.md
+
+plugins:
+  - search
+
+markdown_extensions:
+  # Python Markdown
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  # PyMdown Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Equation rendering (LaTeX between $...$ or $$...$$)
+extra_javascript:
+  - javascripts/mathjax.js
+  - https://unpkg.com/mathjax@3/es5/tex-mml-chtml.js
+
+extra_css:
+  - stylesheets/extra.css

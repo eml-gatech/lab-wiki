@@ -1,0 +1,14 @@
+/* Small adjustments on top of the Material theme.
+   Change colors in mkdocs.yml (theme.palette) rather than here. */
+
+/* Tables stretch to the full content width so long rosters stay readable */
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+}
+
+/* Slightly larger text for the landing page intro */
+.md-typeset .lead {
+  font-size: 1.1em;
+  line-height: 1.6;
+}

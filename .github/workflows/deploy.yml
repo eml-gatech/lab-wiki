@@ -1,0 +1,61 @@
+# Builds the wiki on every push and pull request.
+# Pushes to main are also published to GitHub Pages.
+# Pull requests are only built (with --strict), so broken links or
+# config errors show up as a failed check before anything is merged.
+
+name: Build and deploy wiki
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:      # adds a "Run workflow" button in the Actions tab
+
+permissions:
+  contents: read
+
+env:
+  # Silences an informational banner printed by mkdocs-material 9.7.x about
+  # MkDocs 2.0. We pin mkdocs==1.6.1 in requirements.txt, so it doesn't apply.
+  NO_MKDOCS_2_WARNING: "true"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Build site
+        run: mkdocs build --strict
+
+      - name: Upload site for GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: site
+
+  deploy:
+    if: github.event_name != 'pull_request' && github.ref == 'refs/heads/main'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    concurrency:
+      group: pages
+      cancel-in-progress: false
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
